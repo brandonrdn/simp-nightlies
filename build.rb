@@ -26,7 +26,7 @@ Dir.chdir(rubygem_dir) do
   `git checkout iso_build_command`
   `bundle install`
 
-isos = `bundle exec ruby -I lib/ exe/simp-metadata release -v #{version} -w simp-metadata,https://github.com/brandonrdn/simp-metadata isos #{platform}`
+isos = `bundle exec ruby -I lib/ exe/simp-metadata release -v #{version} -w simp-metadata,https://github.com/brandonrdn/simp-metadata isos #{platform}`.split("\n")
 
 # Copy Base ISOs to build directory
 isos.each do |iso|
@@ -53,7 +53,7 @@ build_command = heredoc.tr("\n", ' ')
 FileUtils.makedirs("#{binaries_dir}/{ISO,Tarballs,RPMs}")
 
 # Move platform specific information
-platforms = `bundle exec ruby -I lib/ exe/simp-metadata release -v #{version} -w simp-metadata,https://github.com/brandonrdn/simp-metadata platforms`
+platforms = `bundle exec ruby -I lib/ exe/simp-metadata release -v #{version} -w simp-metadata,https://github.com/brandonrdn/simp-metadata platforms`.split("\n")
 
 platforms.each do |dir|
   Dir.chdir("#{currentdir}/#{dir}") do
