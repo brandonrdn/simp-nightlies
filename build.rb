@@ -23,6 +23,7 @@ iso_cache = "#{rubygem_dir}/Base_ISOs"
 FileUtils.makedirs("#{iso_cache}")
 
 Dir.chdir(rubygem_dir) do
+  `git checkout iso_build_command`
   `bundle install`
 
 isos = `bundle exec ruby -I lib/ exe/simp-metadata release -v #{version} -w simp-metadata,https://github.com/brandonrdn/simp-metadata isos #{platform}`
