@@ -13,7 +13,7 @@ $simp_metadata_debug_level = 'debug2'
 edition = ENV["EDITION"]
 version = ENV["VERSION"]
 currentdir = Dir.pwd
-rubygem_dir = ENV["RUBYGEM_DIR"] # REMOVE AFTER RUBYGEM IS INSTALLED
+rubygem_dir = ENV["RUBYGEM_DIR"]
 el_version = ENV["EL_VERSION"]
 binaries_dir = ENV["BINARIESDIR"]
 platform = ENV["PLATFORM"]
@@ -23,6 +23,7 @@ iso_cache = "#{rubygem_dir}/Base_ISOs"
 FileUtils.makedirs("#{iso_cache}")
 
 Dir.chdir(rubygem_dir) do
+  `bundle install`
 
 isos = `bundle exec ruby -I lib/ exe/simp-metadata release -v #{version} -w simp-metadata,https://github.com/brandonrdn/simp-metadata isos #{platform}`
 

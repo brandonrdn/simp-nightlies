@@ -11,7 +11,7 @@ fi
 # Set global dir variables
 export source_dir="$(pwd)"
 export VERSION=${VERSION:=nightly-$(timedatectl | head -n 1 | awk '{print $4}')}
-export BUILDDIR="${source_dir}/build"
+export BUILDDIR="${source_dir}/iso_builds"
 export BINARIESDIR="${source_dir}/binaries"
 export EL_VERSION=${EL_VERSION:=el7}
 export PLATFORM=${PLATFORM}

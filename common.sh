@@ -15,6 +15,7 @@ export BUILDDIR="${source_dir}/rubygem-simp-metadata/build"
 export BINARIESDIR="${source_dir}/binaries"
 export EL_VERSION=${EL_VERSION:=el7}
 export PLATFORM=${PLATFORM}
+export RUBYGEM_DIR="$(pwd)/rubygem-simp-metadata"
 
 # Copy ssh and licence keys
 echo "${LICENSE_KEY}" > ./license.key
@@ -30,8 +31,3 @@ rm -rf "${BINARIESDIR}"
 if [ ! -d "${BINARIESDIR}" ];then
 mkdir -p "${BINARIESDIR}"
 fi
-
-git clone https://github.com/brandonrdn/rubygem-simp-metadata
-cd rubygem-simp-metadata
-bundle install
-export RUBYGEM_DIR="$(pwd)"
