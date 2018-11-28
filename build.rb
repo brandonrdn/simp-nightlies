@@ -30,7 +30,6 @@ isos = `bundle exec ruby -I lib/ exe/simp-metadata release -v #{version} -w simp
 
 # Copy Base ISOs to build directory
 isos.each do |iso|
-  next if iso.include?('rhel')
   puts "=== Copying #{iso} ==="
   FileUtils.copy "/data/community-download/simp/ISO/base_isos/#{iso}", "#{iso_cache}"
 end
@@ -40,6 +39,7 @@ bundle exec ruby -I lib/
 exe/simp-metadata
 build iso
 -v #{version}
+--distribution CentOS
 --iso_cache #{iso_cache}
 --preserve
 -w simp-metadata,https://github.com/brandonrdn/simp-metadata
@@ -58,7 +58,6 @@ FileUtils.makedirs("#{binaries_dir}/{ISO,Tarballs,RPMs}")
 platforms = `bundle exec ruby -I lib/ exe/simp-metadata release -v #{version} -w simp-metadata,https://github.com/brandonrdn/simp-metadata platforms`.split("\n")
 
 platforms.each do |dir|
-  next if platform.include?('RedHat')
   Dir.chdir("#{currentdir}/#{dir}") do
     # Copy ISO
     iso_file = Dir.glob(File.join("**", 'SIMP', "*.iso"))
