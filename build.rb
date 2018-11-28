@@ -31,6 +31,7 @@ isos = `bundle exec ruby -I lib/ exe/simp-metadata release -v #{version} -w simp
 # Copy Base ISOs to build directory
 isos.each do |iso|
   next if iso.include?('rhel')
+  puts "=== Copying #{iso} ==="
   FileUtils.copy "/data/community-download/simp/ISO/base_isos/#{iso}", "#{iso_cache}"
 end
 
@@ -46,7 +47,7 @@ HERDOC
 
 build_command = heredoc.tr("\n", ' ')
 
-%x("#{build_command}")
+system("#{build_command}")
 
 # Move files to binaries dir
 
@@ -57,6 +58,7 @@ FileUtils.makedirs("#{binaries_dir}/{ISO,Tarballs,RPMs}")
 platforms = `bundle exec ruby -I lib/ exe/simp-metadata release -v #{version} -w simp-metadata,https://github.com/brandonrdn/simp-metadata platforms`.split("\n")
 
 platforms.each do |dir|
+  next if platform.include?('RedHat')
   Dir.chdir("#{currentdir}/#{dir}") do
     # Copy ISO
     iso_file = Dir.glob(File.join("**", 'SIMP', "*.iso"))
