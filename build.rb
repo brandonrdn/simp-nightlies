@@ -30,6 +30,7 @@ isos = `bundle exec ruby -I lib/ exe/simp-metadata release -v #{version} -w simp
 
 # Copy Base ISOs to build directory
 isos.each do |iso|
+  next if iso.include?('rhel')
   FileUtils.copy "/data/community-download/simp/ISO/base_isos/#{iso}", "#{iso_cache}"
 end
 
