@@ -22,6 +22,8 @@ iso_cache = "#{rubygem_dir}/Base_ISOs"
 # Copy ISOs for builds
 FileUtils.makedirs("#{iso_cache}")
 
+Dir.chdir(rubygem_dir) do
+
 isos = `bundle exec ruby -I lib/ exe/simp-metadata release -v #{version} -w simp-metadata,https://github.com/brandonrdn/simp-metadata isos #{platform}`
 
 # Copy Base ISOs to build directory
@@ -63,5 +65,6 @@ platforms.each do |dir|
   end
   # Purge dir
   FileUtils.rm_r dir
+end
 end
 # vim: set expandtab ts=2 sw=2:

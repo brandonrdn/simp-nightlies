@@ -26,11 +26,6 @@ export GIT_SSH="$(pwd)/git_ssh_wrapper.sh"
 git clone https://github.com/brandonrdn/rubygem-simp-metadata
 
 # Purge global dirs
-rm -rf "${BUILDDIR}"
-if [ ! -d "${BUILDDIR}" ];then
-mkdir "${BUILDDIR}"
-mkdir "${BUILDDIR}"
-fi
 rm -rf "${BINARIESDIR}"
 if [ ! -d "${BINARIESDIR}" ];then
 mkdir -p "${BINARIESDIR}"
