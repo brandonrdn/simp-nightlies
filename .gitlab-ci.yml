@@ -1,0 +1,42 @@
+image: "simpproject/centos:7-ruby24"
+stages:
+  - build
+  - test
+  - deploy
+cache:
+  paths:
+    - vendor/ruby
+build:offline:
+  stage: 'build'
+  only:
+    - triggers
+    - schedules
+    - web
+    - api
+    - pipelines
+  tags:
+    - enterprise-docker
+  artifacts:
+    expire_in: 2 days
+    paths:
+     - binaries/
+  script:
+    - ./build.sh offline
+#deploy:offline:
+#  only:
+#    - triggers
+#    - schedules
+#    - web
+#    - api
+#    - pipelines
+#  stage: 'deploy'
+#  tags:
+#    - enterprise-deploy
+#  dependencies:
+#    - build:offline
+#  artifacts:
+#    expire_in: 4 hours
+#    paths:
+#      - binaries/
+#  script:
+#    - ./deploy.sh
