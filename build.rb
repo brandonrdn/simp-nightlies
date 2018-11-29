@@ -58,14 +58,16 @@ FileUtils.makedirs("#{binaries_dir}/{ISO,Tarballs,RPMs}")
 platforms = `bundle exec ruby -I lib/ exe/simp-metadata release -v #{version} -w simp-metadata,https://github.com/brandonrdn/simp-metadata platforms`.split("\n")
 
 platforms.each do |dir|
-  Dir.chdir("#{currentdir}/#{dir}") do
-    # Copy ISO
-    iso_file = Dir.glob(File.join("**", 'SIMP', "*.iso"))
-    File.move iso_file, "#{binaries_dir}/ISO"
+  if File.exist?("#{currentdir}/#{dir}")
+    Dir.chdir("#{currentdir}/#{dir}") do
+      # Copy ISO
+      iso_file = Dir.glob(File.join("**", 'SIMP', "*.iso"))
+      File.move iso_file, "#{binaries_dir}/ISO"
 
-    # Copy Overlay Tarball
-    tar_files = Dir.glob(File.join("**", "SIMP", "*.tar.gz"))
-    tar_files.each {|file| File.move file, "#{binaries_dir}/Tarballs"}
+      # Copy Overlay Tarball
+      tar_files = Dir.glob(File.join("**", "SIMP", "*.tar.gz"))
+      tar_files.each {|file| File.move file, "#{binaries_dir}/Tarballs"}
+    end
   end
   # Purge dir
   FileUtils.rm_r dir
