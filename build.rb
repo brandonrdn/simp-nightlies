@@ -31,7 +31,7 @@ isos = `bundle exec ruby -I lib/ exe/simp-metadata release -v #{version} -w simp
 # Copy Base ISOs to build directory
 isos.each do |iso|
   puts "=== Copying #{iso} ==="
-  FileUtils.copy "/data/community-download/simp/ISO/base_isos/#{iso}", "#{iso_cache}"
+  FileUtils.copy "/data/community-download/simp/ISO/base_isos/#{iso}", "#{iso_cache}" if File.exist?("/data/community-download/simp/ISO/base_isos/#{iso}")
 end
 
 heredoc = <<-HERDOC
