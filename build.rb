@@ -60,7 +60,7 @@ build iso
   platforms = `bundle exec ruby -I lib/ exe/simp-metadata release -v #{version} -w simp-metadata,https://github.com/brandonrdn/simp-metadata platforms`.split("\n")
 
   platforms.each do |dir|
-    next unless dir.include?(platform)
+    next unless dir.include?(distribution)
     if File.exist?("#{currentdir}/#{dir}")
       Dir.chdir("#{currentdir}/#{dir}") do
         # Copy ISO

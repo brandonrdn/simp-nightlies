@@ -52,6 +52,7 @@ FileUtils.makedirs("#{binaries_dir}/{ISO,Tarballs,RPMs}")
 platforms = `simp-metadata release platforms -v #{version}`
 
 platforms.each do |dir|
+  next unless dir.include?(distribution)
   Dir.chdir("#{currentdir}/#{dir}") do
     # Copy ISO
     iso_file = Dir.glob(File.join("**", 'SIMP', "*.iso"))
