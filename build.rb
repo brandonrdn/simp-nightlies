@@ -60,7 +60,9 @@ build iso
   platforms = `bundle exec ruby -I lib/ exe/simp-metadata release -v #{version} -w simp-metadata,https://github.com/brandonrdn/simp-metadata platforms`.split("\n")
 
   platforms.each do |dir|
+    puts "DIR = #{dir}"
     next unless dir.include?(distribution)
+    puts "AFTER NEXT"
     if File.exist?("#{currentdir}/#{dir}")
       Dir.chdir("#{currentdir}/#{dir}") do
         # Copy ISO
@@ -71,9 +73,10 @@ build iso
         tar_files = Dir.glob(File.join("**", "SIMP", "*.tar.gz"))
         tar_files.each {|file| File.move file, "#{binaries_dir}/Tarballs"}
       end
+      # Purge dir
+      puts "REMOVING DIR #{dir}"
+      FileUtils.rm_r dir
     end
-    # Purge dir
-    FileUtils.rm_r dir
   end
 # Purge ISOS
   FileUtils.rm_r iso_cache
