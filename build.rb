@@ -18,6 +18,7 @@ el_version = ENV["EL_VERSION"]
 binaries_dir = ENV["BINARIESDIR"]
 platform = ENV["PLATFORM"]
 iso_cache = "#{rubygem_dir}/Base_ISOs"
+distribution = 'CentOS'
 
 # Copy ISOs for builds
 FileUtils.makedirs("#{iso_cache}")
@@ -30,6 +31,7 @@ isos = `bundle exec ruby -I lib/ exe/simp-metadata release -v #{version} -w simp
 
 # Copy Base ISOs to build directory
 isos.each do |iso|
+  next unless iso.include?(distribution)
   puts "=== Copying #{iso} ==="
   FileUtils.copy "/data/community-download/simp/ISO/base_isos/#{iso}", "#{iso_cache}" if File.exist?("/data/community-download/simp/ISO/base_isos/#{iso}")
 end
@@ -39,7 +41,7 @@ bundle exec ruby -I lib/
 exe/simp-metadata
 build iso
 -v #{version}
---distribution CentOS
+--distribution #{distribution}
 --iso_cache #{iso_cache}
 --preserve
 -w simp-metadata,https://github.com/brandonrdn/simp-metadata
