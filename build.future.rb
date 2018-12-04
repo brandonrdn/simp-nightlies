@@ -18,6 +18,7 @@ el_version = ENV["EL_VERSION"]
 binaries_dir = ENV["BINARIESDIR"]
 platform = ENV["PLATFORM"]
 iso_cache = "#{currentdir}/Base_ISOs"
+distribution = 'CentOS'
 
 # Copy ISOs for builds
 FileUtils.makedirs("#{iso_cache}")
@@ -33,6 +34,7 @@ heredoc = <<-HERDOC
 simp-metadata
 build iso
 -v #{version}
+--distribution #{distribution}
 --iso_cache #{iso_cache}
 --preserve
 HERDOC
@@ -63,4 +65,7 @@ platforms.each do |dir|
   # Purge dir
   FileUtils.rm_r dir
 end
+
+FileUtils.rm_r iso_cache
+
 # vim: set expandtab ts=2 sw=2:
