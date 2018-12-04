@@ -54,7 +54,7 @@ build iso
 # Move files to binaries dir
 
 # Create binaries folders
-  FileUtils.makedirs("#{binaries_dir}/{ISO,Tarballs,RPMs}")
+ ['ISO','Tarballs','RPMs'].each { |dir| FileUtils.makedirs("#{binaries_dir}/#{dir}") }
 
 # Move platform specific information
   platforms = `bundle exec ruby -I lib/ exe/simp-metadata release -v #{version} -w simp-metadata,https://github.com/brandonrdn/simp-metadata platforms`.split("\n")
